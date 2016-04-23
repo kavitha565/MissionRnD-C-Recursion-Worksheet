@@ -24,7 +24,17 @@
 #include "stdafx.h"
 
 
+int fib(int n)
+{
+	if (n <= 1)
+		return n;
+	else
+		return fib(n - 1) + fib(n - 2);
+}
 int get_steps(int s)
 {
+	if (s==0)
 	return 0;
+	int n = s + 1;
+	return fib(n);
 }
