@@ -33,39 +33,46 @@ Note : Check the function Parameters ,Its a double pointer .
 
 #include "stdafx.h"
 #include<stdlib.h>
-void fun(int n,int columns,int **input_array,int *res,int p)
-{
-	int i, j,k=p;
-	for (i = n, j = 0; j < columns - 1; j++)
-	{
-		res[k++] = input_array[i][j];
-	}
-	fun(n - 1,columns,input_array,res,p);
-}
 int *spiral(int rows, int columns, int **input_array)
 {
-	if (input_array==NULL||rows<=0||columns<=0)
-	return NULL;
-	int i, j, k = 0;
+	if (input_array == NULL || rows <= 0 || columns <= 0)
+		return NULL;
+
 	int n = rows*columns;
 	int *res = (int *)malloc(n*sizeof(int));
-	for (i = 0, j = 0; j < columns; j++)
+	int i, k = 0, r1 = 0, r2 = rows, c1 = 0, c2 = columns;
+
+	while (r1 < r2 && c1 < c2)
 	{
-		res[k++] = input_array[i][j];
-	}
-	for (i = 1, j = columns - 1; i < rows; i++)
-	{
-		res[k++] = input_array[i][j];
-	}
-	for (i = rows - 1, j = columns - 2; j >= 0; j--)
-	{
-		res[k++] = input_array[i][j];
-	}
-	if (rows >= columns)
-	{
-		int p = k;
-		int n = rows - 2;
-		fun(n, columns, input_array, res,p);
+		for (i = c1; i < c2; i++)
+		{
+			res[k++] = input_array[r1][i];
+		}
+		r1++;
+		for (i = r1; i < r2; i++)
+		{
+			res[k++] = input_array[i][c2 - 1];
+		}
+		c2--;
+		if (r1 < r2)
+		{
+			for (i = c2 - 1; i >= c1; i--)
+			{
+				res[k++] = input_array[r2 - 1][i];
+			}
+			r2--;
+		}
+		if (c1 < c2)
+		{
+			for (i = r2 - 1; i >= r1; i--)
+			{
+				res[k++] = input_array[i][c1];
+			}
+			c1++;
+		}
 	}
 	return res;
 }
+
+
+

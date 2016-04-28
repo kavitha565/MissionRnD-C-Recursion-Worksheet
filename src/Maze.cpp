@@ -38,5 +38,6 @@ more parameters .
 
 int path_exists(int *maze, int rows, int columns, int x1, int y1, int x2, int y2)
 {
-	return 1;
+	if (rows <= 0 || columns <= 0||x1<=0)
+		return 0;
 }
